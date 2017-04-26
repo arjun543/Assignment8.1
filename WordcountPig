@@ -1,0 +1,40 @@
+
+
+Input file :wc.txt
+
+hi hello how are you
+how is your work
+have a nice day
+stay happy 
+learn hadoop from acadgild
+
+
+Solution :
+
+lines = LOAD 'wc.txt' AS (line:chararray);
+words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) as word;
+grouped = GROUP words BY word;
+wordcount = FOREACH grouped GENERATE group, COUNT(words);
+DUMP wordcount;
+
+ouput :
+(a,1)
+(hi,1)
+(is,1)
+(are,1)
+(day,1)
+(how,2)
+(you,1)
+(from,1)
+(have,1)
+(nice,1)
+(stay,1)
+(work,1)
+(your,1)
+(happy,1)
+(hello,1)
+(learn,1)
+(hadoop,1)
+(acadgild,1)
+
+
